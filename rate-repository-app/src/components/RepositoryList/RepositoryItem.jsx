@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native"
-import Avatar from "./Avatar"
+import Avatar from "../Avatar"
 import InfoSection from "./InfoSection"
 import StatisticSection from "./StatisticSection"
 
