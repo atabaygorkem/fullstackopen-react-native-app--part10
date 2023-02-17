@@ -1,20 +1,13 @@
-import { FlatList, View, StyleSheet } from "react-native"
+import { useState } from "react"
+import { FlatList, Pressable, View } from "react-native"
+import { useNavigate } from "react-router-native"
 import useRepositories from "../../hooks/useRepositories"
-import theme from "../../theme"
-import Text from "../Text"
+import { repositoriesQueryVariables } from "../../utils"
+import ItemSeparator from "../ItemSeperator"
+// import LoadingIndicator from "../LoadingIndicator"
+import OrderMenu from "./OrderMenu"
 import RepositoryItem from "./RepositoryItem"
-
-const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-  },
-  loadingIndicator: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: theme.colors.mainBg,
-    flexGrow: 1,
-  },
-})
+import SearchBar from "./SearchBar"
 
 // const repositories = [
 //   {
@@ -63,17 +56,28 @@ const styles = StyleSheet.create({
 //   },
 // ]
 
-const ItemSeparator = () => <View style={styles.separator} />
-
 const RepositoryList = () => {
-  const { repositories, loading } = useRepositories()
+  const [searchKeyword, setSearchKeyword] = useState("")
+  const [queryVariables, setQueryVariables] = useState(
+    repositoriesQueryVariables.latest
+  )
 
-  if (loading)
-    return (
-      <View style={styles.loadingIndicator}>
-        <Text>Loading...</Text>
-      </View>
-    )
+  const { repositories, fetchMore } = useRepositories({
+    ...queryVariables,
+    searchKeyword,
+  })
+  // if (loading) return <LoadingIndicator center />
+  const navigate = useNavigate()
+
+  function onEndReach() {
+    fetchMore()
+  }
+
+  const renderItem = ({ item }) => (
+    <Pressable onPress={() => navigate(`/repository/${item.id}`)}>
+      <RepositoryItem item={item} />
+    </Pressable>
+  )
   // Get the nodes from the edges array
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
@@ -83,7 +87,16 @@ const RepositoryList = () => {
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
-      renderItem={RepositoryItem}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      ListHeaderComponent={
+        <View style={{ flexDirection: "row", margin: 8 }}>
+          <SearchBar setSearchKeyword={setSearchKeyword} />
+          <OrderMenu setQueryVariables={setQueryVariables} />
+        </View>
+      }
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   )
 }

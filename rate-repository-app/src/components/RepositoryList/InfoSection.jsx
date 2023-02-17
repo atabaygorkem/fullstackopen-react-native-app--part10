@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   flexItem: {
     flexGrow: 1,
     flexShrink: 1,
-    margin: 26,
+    marginLeft: 24,
   },
   itemMargin: {
     marginBottom: 10,
@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     // marginBottom: 10,
     backgroundColor: theme.colors.primary,
     alignSelf: "flex-start",
-    padding: 6,
     borderRadius: 10,
+    padding: 6,
   },
   colors: {
     color: "white",
@@ -32,7 +32,7 @@ const InfoSection = ({ item }) => {
       <Text color="textSecondary" style={styles.itemMargin}>
         {item.description}
       </Text>
-      <View style={styles.tagItem}>
+      <View style={[styles.tagItem]}>
         <Text style={styles.colors}>{item.language}</Text>
       </View>
     </View>

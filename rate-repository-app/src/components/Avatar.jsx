@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
   flexItem: {
     flexGrow: 0,
     borderRadius: 10,
-    marginLeft: 26,
-    marginTop: 26,
+    // marginLeft: 26,
+    // marginTop: 26,
   },
 })
 

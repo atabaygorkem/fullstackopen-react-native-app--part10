@@ -16,11 +16,11 @@ const useSignIn = () => {
         },
       },
     })
-    console.log("log from signin hook", response)
+    console.log("useSignIn: ", response)
     if (response) {
       await authStorage.setAccessToken(response.data?.authenticate?.accessToken)
 
-      console.log("token is saved", await authStorage.getAccessToken())
+      console.log("Token is saved: ", await authStorage.getAccessToken())
       apolloClient.resetStore()
       console.log("Resetting apollo store")
     }

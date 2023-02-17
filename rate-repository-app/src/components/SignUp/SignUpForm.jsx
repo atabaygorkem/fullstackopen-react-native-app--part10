@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const SignInForm = ({ onSubmit }) => {
+const SignUpForm = ({ onSubmit }) => {
   const { fadeIn, fadeOut, animated } = animateButton()
   return (
     <View style={styles.container}>
@@ -44,15 +44,21 @@ const SignInForm = ({ onSubmit }) => {
         placeholder="Password"
         secureTextEntry={true}
       />
+      <FormikTextInput
+        style={styles.textInput}
+        name="passwordConfirm"
+        placeholder="Password confirmation"
+        secureTextEntry={true}
+      />
       <Pressable onPress={onSubmit} onPressIn={fadeIn} onPressOut={fadeOut}>
         <Animated.View
           style={[styles.textInput, styles.signButton, { opacity: animated }]}
         >
-          <Text style={styles.textColor}>Sign in</Text>
+          <Text style={styles.textColor}>Sign up</Text>
         </Animated.View>
       </Pressable>
     </View>
   )
 }
 
-export default SignInForm
+export default SignUpForm

@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
   fontWeightBold: {
     fontWeight: theme.fontWeights.bold,
   },
+  errorText: {
+    marginTop: 5,
+    marginLeft: 10,
+    color: "#d73a4a",
+  },
 })
 
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
@@ -28,6 +33,7 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
     styles.text,
     color === "textSecondary" && styles.colorTextSecondary,
     color === "primary" && styles.colorPrimary,
+    color === "error" && styles.errorText,
     fontSize === "subheading" && styles.fontSizeSubheading,
     fontWeight === "bold" && styles.fontWeightBold,
     style,
